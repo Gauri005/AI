@@ -1,0 +1,131 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2Fexercise-hydration&psig=AOvVaw27pRWkKLNUaj4I_23VLeVn&ust=1743662909440000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPjH99nguIwDFQAAAAAdAAAAABAE") no-repeat center center fixed ;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.chat-container {
+    width: 380px;
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    backdrop-filter: blur(10px);
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    background-color: #007BFF;  /* Blue background for header */
+    color: white;
+    padding: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chat-header img {
+    width: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+.chat-box .message {
+    padding: 12px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    max-width: 75%;
+    line-height: 1.5;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.bot {
+    background-color: #add8e6;  /* Light blue for bot messages */
+    align-self: flex-start;
+    border-radius: 20px 20px 0 20px;
+    color: #004b6f;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user {
+    background-color: #87CEFA;  /* Lighter blue for user messages */
+    align-self: flex-end;
+    border-radius: 20px 20px 20px 0;
+    color: #004b6f;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 30px;
+    background-color: #f1f1f1;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #007BFF;  /* Blue color for send button */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+/* Navy blue input field */
+.chat-input input {
+    background-color: #1a1a2e;  /* Navy blue for input */
+    color: white;
+    border-radius: 30px;
+}
+
+/* Custom scrollbar */
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #007BFF;
+    border-radius: 10px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+    .chat-container {
+        width: 100%;
+    }
+}
