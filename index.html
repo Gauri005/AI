@@ -9,15 +9,19 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <img src="water-drop.png" alt="Hydration Coach Logo" class="logo">
+            <div class="logo">HC</div>
             <h2>Hydration Coach</h2>
         </div>
+        
         <div class="chat-box" id="chat-box">
-            <div class="message bot">💧 Hello! I'm your Hydration Coach. How can I assist you today?</div>
+            <div class="message bot">
+                <p> Hello! I'm your Hydration Coach. How can I assist you today? 💧</p>
+            </div>
         </div>
+
         <div class="chat-input">
-            <input type="text" id="user-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
-            <button onclick="sendMessage()">Send</button>
+            <input type="text" id="user-input" placeholder="Type a message" onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">➤</button>
         </div>
     </div>
 
