@@ -63,6 +63,26 @@ function getBotResponse(input) {
         return "In cold weather, people often drink less water. Stay hydrated even if you don’t feel thirsty! ❄️💧";
     }
 
+    if (input.includes("plan") || input.includes("water intake timetable")) {
+        return "Stay Hydrated: The Perfect Daily Water Drinking Schedule 💧
+Water is essential for maintaining good health, boosting energy, and keeping your body functioning at its best. But did you know that when you drink water is just as important as how much you drink? Here's a simple and effective water drinking schedule to keep you refreshed throughout the day.
+
+🌅 Morning Boost (7:00 AM - 8:00 AM): Start your day with a glass of water right after waking up. This helps to kickstart your metabolism, flush out toxins, and rehydrate your body after hours of sleep. Drinking another glass before breakfast prepares your digestive system for the day ahead.
+
+🌞 Mid-Morning Refresh (10:00 AM): A mid-morning glass of water keeps you alert and energized. It helps maintain focus and prevents dehydration, especially if you're busy at work or school.
+
+🥗 Pre-Lunch Hydration (12:30 PM): Drinking a glass of water about 30 minutes before lunch aids digestion and prevents overeating. It also helps your stomach prepare for food, making nutrient absorption more efficient.
+
+☀️ Afternoon Recharge (3:00 PM): The afternoon slump is real! Instead of reaching for caffeine, have a glass of water to stay refreshed and maintain steady energy levels. Proper hydration keeps your body and mind sharp throughout the day.
+
+🏃‍♂️ Evening Hydration (5:00 PM): Whether you're heading to the gym, finishing work, or preparing dinner, a glass of water in the early evening keeps your metabolism active and prevents dehydration.
+
+🍽️ Pre-Dinner Support (7:30 PM): Drinking water before dinner helps with digestion and prevents excessive hunger. However, avoid drinking too much water during meals to ensure proper nutrient absorption.
+
+🌙 Nighttime Detox (9:00 PM): A final glass of water before bed supports overnight detoxification and keeps you hydrated as you sleep. But be careful not to drink too much, as it might lead to midnight trips to the bathroom!
+
+💧 Final Tip: Adjust your water intake based on your activity level, climate, and body weight. Carry a bottle with you and listen to your body’s thirst signals to stay optimally hydrated.";
+    }
     if (input.includes("desert") || input.includes("hot climate") || input.includes("heatwave")) {
         return "Hot climates increase dehydration risk. Aim for at least **3-4 liters** per day, plus electrolytes. 🌞💧";
     }
