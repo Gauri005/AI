@@ -154,5 +154,5 @@ function getBotResponse(input) {
     }
 
     // Default Response
-    return "I'm here to help! Ask me about hydration, diet, exercise, weather, skin health, or hydration myths. 💙";
+    return "I'm here to help! Ask me about hydration,. 💙";
 }
