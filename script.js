@@ -1,153 +1,158 @@
+function sendMessage() {
+    let inputField = document.getElementById("user-input");
+    let message = inputField.value.trim();
+
+    if (message === "") return;
+
+    appendMessage("user", message);
+    inputField.value = "";
+
+    setTimeout(() => {
+        let response = getBotResponse(message);
+        appendMessage("bot", response);
+    }, 1000);
+}
+
+function appendMessage(sender, message) {
+    let chatBox = document.getElementById("chat-box");
+    let messageElement = document.createElement("div");
+
+    messageElement.className = `message ${sender}`;
+    messageElement.textContent = message;
+
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
 function getBotResponse(input) {
     input = input.toLowerCase();
 
     // Greetings
     if (input.includes("hi") || input.includes("hello") || input.includes("hey") || input.includes("who are you") || input.includes("what is your name")) {
-        return "Hello! I'm your personal AI Hydration Coach 💧. I'm here to guide you on staying hydrated based on your lifestyle, health, and activity levels. Ask me anything about water, hydration, or how it affects your body!";
+        return "Hi there! I'm your AI Hydration Coach. I help you stay hydrated by giving personalized advice. Ask me anything about water intake! 💧";
     }
 
-    // Dehydration Effects
-    if (input.includes("not drinking water") || input.includes("dehydration effects") || input.includes("what happens if")) {
-        return "When you don’t drink enough water, your body suffers silently. Initially, you might feel tired, get frequent headaches, or struggle to concentrate. Over time, dehydration can lead to dry skin, constipation, kidney stones, and even UTIs. Your joints may ache due to reduced lubrication, and your brain performance can slow down. Chronic dehydration may affect your blood pressure, heart rate, and increase the risk of heat stroke in summer. So always listen to your body’s thirst cues and keep that water bottle close! 🚰🔥";
-    }
-
-    // Personalized profession + weight-based recommendation
-    let professionWeightMatch = input.match(/(\d{2,3})\s*kg.*(gym|athlete|office|job|sportsperson|working professional)/);
-    if (professionWeightMatch) {
-        let weight = parseFloat(professionWeightMatch[1]);
-        let profession = professionWeightMatch[2];
-        let baseIntake = weight * 0.033;
-        let extra = 0;
-
-        if (profession.includes("gym")) {
-            extra = 0.7;
-            return `As a gym enthusiast weighing ${weight} kg, your ideal water intake is approximately **${(baseIntake + extra).toFixed(2)} liters per day**, including extra for sweat loss. 🏋️‍♂️💧`;
-        }
-
-        if (profession.includes("athlete") || profession.includes("sportsperson")) {
-            extra = 1.0;
-            return `As an athlete or sportsperson weighing ${weight} kg, your recommended water intake is about **${(baseIntake + extra).toFixed(2)} liters per day**. Stay hydrated to perform at your peak! 🏃‍♂️⚽💧`;
-        }
-
-        if (profession.includes("office") || profession.includes("job") || profession.includes("working professional")) {
-            extra = 0.3;
-            return `As a working professional weighing ${weight} kg, aim for about **${(baseIntake + extra).toFixed(2)} liters of water daily** to stay focused and energized in your office environment. 💼💧`;
-        }
-    }
-
-    // Weight-based intake
+    // Hydration Needs Based on Weight
     let weightMatch = input.match(/(\d{2,3})\s*kg/);
     if (weightMatch) {
         let weight = parseFloat(weightMatch[1]);
         let waterIntake = weight * 0.033;
-        return `Based on your weight of ${weight} kg, you should drink about **${waterIntake.toFixed(2)} liters** of water per day. Adjust it upward if you're active, in a hot climate, or pregnant. 🚰📏`;
+        return `For your weight, you should drink about **${waterIntake.toFixed(2)} liters** of water per day💦`;
     }
 
-    // Working Professionals
-    if (input.includes("job") || input.includes("office") || input.includes("working professional")) {
-        return "As a working professional, especially in desk jobs, it's easy to forget drinking water. But air-conditioned environments and long hours in front of screens can dehydrate you without you realizing it. Aim for **2.5 to 3 liters daily**, more if you're in a warm climate. Hydration helps maintain focus, reduce eye strain, prevent fatigue, and even enhance mood and productivity. 💼🖥️💧";
-    }
-
-    // Gym-goers
-    if (input.includes("gym") || input.includes("bodybuilding") || input.includes("strength training")) {
-        return "Hydration is a critical part of your gym routine. When you sweat, you lose essential fluids and electrolytes. For gym-goers, **3 to 3.5 liters per day** is a good baseline, and you should add another **500ml to 1L** during workouts. 💪💦🏋️‍♀️";
-    }
-
-    // Athletes
-    if (input.includes("athlete") || input.includes("sports") || input.includes("cricket") || input.includes("football") || input.includes("sportsperson")) {
-        return "Athletes and sportspersons need to take hydration seriously. Aim for **4 to 5 liters or more daily** depending on training intensity. Hydrate before, during, and after activity. Dehydration of even 2% can affect performance. 🏃‍♂️⚽🥤";
-    }
-
-    // Pregnancy and Breastfeeding
+    // Hydration Needs in Special Conditions
     if (input.includes("pregnancy") || input.includes("pregnant") || input.includes("breastfeeding")) {
-        return "During pregnancy or while breastfeeding, your water needs increase. Aim for at least **2.5 to 3 liters daily**, more if you're active or live in a warm climate. 🤰💧";
+        return "During pregnancy or breastfeeding, your water needs increase! Aim for at least **2.5 to 3 liters** of water daily. 💧🤰";
     }
 
-    // Exercise / Sweating
-    if (input.includes("exercise") || input.includes("workout") || input.includes("sweat")) {
-        return "If you’re exercising, always drink **500ml - 1L extra** during and after your session. Consider sports drinks or coconut water for long/intense workouts. 🏋️‍♂️💦";
+    if (input.includes("exercise") || input.includes("workout") || input.includes("gym") || input.includes("sweat")) {
+        return "During exercise, drink **500ml - 1L extra** water to replace sweat loss. Consider electrolytes if sweating a lot! 🏋️‍♂️💦";
     }
 
-    // Alcohol
     if (input.includes("alcohol") || input.includes("beer") || input.includes("wine") || input.includes("hangover")) {
-        return "Alcohol increases urine output, leading to dehydration. Drink at least **one glass of water per alcoholic drink**, and hydrate before sleep to reduce hangover effects. 🍷🚱";
+        return "Alcohol dehydrates you! Drink **one glass of water per alcoholic drink** to prevent dehydration. 🚰🍷";
     }
 
-    // Cold Weather
     if (input.includes("cold weather") || input.includes("winter")) {
-        return "In winter, we feel less thirsty, but your body still loses water through breath and urine. Drink warm herbal teas or room-temp water to stay hydrated. ❄️🥶";
+        return "In cold weather, people often drink less water. Stay hydrated even if you don’t feel thirsty! ❄️💧";
     }
 
-    // Diet/Nutrition
-    if (input.includes("diet plan") || input.includes("nutrition") || input.includes("healthy food")) {
-        return "Hydration and nutrition go hand in hand. Eat water-rich foods like watermelon, cucumber, and oranges. Avoid salty, sugary, and caffeinated drinks. 🥗🍉";
+//     if (input.includes("plan") || input.includes("water intake timetable")) {
+//         return "Stay Hydrated: The Perfect Daily Water Drinking Schedule 💧
+// Water is essential for maintaining good health, boosting energy, and keeping your body functioning at its best. But did you know that when you drink water is just as important as how much you drink? Here's a simple and effective water drinking schedule to keep you refreshed throughout the day.
+
+// 🌅 Morning Boost (7:00 AM - 8:00 AM): Start your day with a glass of water right after waking up. This helps to kickstart your metabolism, flush out toxins, and rehydrate your body after hours of sleep. Drinking another glass before breakfast prepares your digestive system for the day ahead.
+
+// 🌞 Mid-Morning Refresh (10:00 AM): A mid-morning glass of water keeps you alert and energized. It helps maintain focus and prevents dehydration, especially if you're busy at work or school.
+
+// 🥗 Pre-Lunch Hydration (12:30 PM): Drinking a glass of water about 30 minutes before lunch aids digestion and prevents overeating. It also helps your stomach prepare for food, making nutrient absorption more efficient.
+
+// ☀️ Afternoon Recharge (3:00 PM): The afternoon slump is real! Instead of reaching for caffeine, have a glass of water to stay refreshed and maintain steady energy levels. Proper hydration keeps your body and mind sharp throughout the day.
+
+// 🏃‍♂️ Evening Hydration (5:00 PM): Whether you're heading to the gym, finishing work, or preparing dinner, a glass of water in the early evening keeps your metabolism active and prevents dehydration.
+
+// 🍽️ Pre-Dinner Support (7:30 PM): Drinking water before dinner helps with digestion and prevents excessive hunger. However, avoid drinking too much water during meals to ensure proper nutrient absorption.
+
+// 🌙 Nighttime Detox (9:00 PM): A final glass of water before bed supports overnight detoxification and keeps you hydrated as you sleep. But be careful not to drink too much, as it might lead to midnight trips to the bathroom!
+
+// 💧 Final Tip: Adjust your water intake based on your activity level, climate, and body weight. Carry a bottle with you and listen to your body’s thirst signals to stay optimally hydrated.";
+//     }
+    if (input.includes("desert") || input.includes("hot climate") || input.includes("heatwave")) {
+        return "Hot climates increase dehydration risk. Aim for at least **3-4 liters** per day, plus electrolytes. 🌞💧";
     }
 
-    // Salt / Sodium
-    if (input.includes("salt") || input.includes("sodium")) {
-        return "Too much salt increases thirst and can cause bloating. Drink plenty of water and reduce salty, processed foods. 💦🧂";
+    // Hydration & Nutrition
+    if (input.includes("diet plan") || input.includes("meal plan") || input.includes("nutrition") || input.includes("food") || input.includes("healthy diet")) {
+        return "A balanced diet helps hydration! Eat water-rich foods like watermelon, cucumbers, and oranges. Avoid too much caffeine and alcohol. 🍉🥗";
     }
 
-    // Fiber / Constipation
+    if (input.includes("sodium") || input.includes("salt")) {
+        return "High sodium (salt) intake can cause dehydration. Reduce processed foods and drink more water! 🚰🧂";
+    }
+
     if (input.includes("fiber") || input.includes("digestion") || input.includes("constipation")) {
-        return "Fiber needs water to move through the digestive system. Drink more water to avoid constipation when eating high-fiber foods. 🍎💧";
+        return "Drinking enough water helps with digestion and prevents constipation. Eat fiber-rich foods for gut health! 🍎💦";
     }
 
-    // Smartwatch / Apps
+    // Smart Tracking
     if (input.includes("smartwatch") || input.includes("fitness tracker") || input.includes("hydration app")) {
-        return "Smartwatches and hydration apps are great for tracking water intake and getting reminders. Sync your device and stay on track! 📲💧";
+        return "Your smartwatch can track water intake, sweat loss, and activity. Sync it with a hydration app for better tracking! 📊";
     }
 
-    // Sleep
-    if (input.includes("before bed") || input.includes("sleep") || input.includes("thirsty at night")) {
-        return "Drinking a small glass of water before bed helps avoid dehydration. But avoid drinking too much or it might disrupt your sleep. 🛌🕗";
+    // Hydration & Sleep
+    if (input.includes("before bed") || input.includes("sleep quality") || input.includes("waking up thirsty")) {
+        return "Drinking a small amount of water before bed helps, but too much can disrupt sleep. Balance it wisely! 💤💧";
     }
 
-    // Skin Health
-    if (input.includes("skin") || input.includes("acne") || input.includes("glowing skin")) {
-        return "Drinking water keeps your skin elastic, reduces acne, and adds a healthy glow. Eat water-rich fruits like oranges and berries too! 🧖‍♀️🍊";
+    // Hydration & Skin
+    if (input.includes("clear skin") || input.includes("acne") || input.includes("glowing skin") || input.includes("dry skin")) {
+        return "Drinking water keeps your skin hydrated and helps reduce acne! Include hydrating foods like cucumber and oranges. 🥒🍊";
     }
 
-    // Diabetes
+    // Health Conditions
     if (input.includes("diabetes")) {
-        return "For people with diabetes, water helps regulate blood sugar and offsets dehydration from frequent urination. Stick to plain water—avoid sugary drinks. 🩺💧";
+        return "If you have diabetes, staying hydrated helps regulate blood sugar levels. Drink plenty of water and avoid sugary drinks. 🚰";
     }
 
-    // Kidney Stones
     if (input.includes("kidney stones")) {
-        return "To prevent kidney stones, drink at least **2.5 to 3 liters** of water daily. Adding lemon to your water may help prevent certain stone types. 🍋💦";
+        return "Drink at least **2.5-3 liters** of water daily to prevent kidney stones. Lemon water may also help. 🏥💦";
     }
 
-    // Symptoms of Dehydration
-    if (input.includes("headache") || input.includes("fatigue") || input.includes("cramps") || input.includes("dizzy") || input.includes("tired")) {
-        return "These could be signs of dehydration. Try sipping water regularly throughout the day. Even mild dehydration affects energy and focus. 💢💧";
+    if (input.includes("headache") || input.includes("fatigue") || input.includes("muscle cramps") || input.includes("dizzy") || input.includes("tired")) {
+        return "These could be signs of dehydration! Drink water, rest, and check if you're getting enough electrolytes. 💧";
     }
 
     // Hydration Myths
-    if (input.includes("8 glasses")) {
-        return "The '8 glasses a day' is a general rule. A better method is to drink **0.033 liters per kg** of body weight. 📏💧";
+    if (input.includes("8 glasses rule")) {
+        return "The '8 glasses a day' rule is a guideline. Your needs depend on weight, activity, and climate! 💧";
     }
 
     if (input.includes("coffee dehydrates")) {
-        return "Coffee has a mild diuretic effect but doesn’t cause dehydration in moderate amounts. Just don’t use it as your main hydration source. ☕👍";
+        return "Coffee has a mild diuretic effect, but in moderation, it does NOT significantly dehydrate you. ☕";
     }
 
     if (input.includes("tea dehydrates")) {
-        return "Tea, especially herbal, contributes to hydration. Most teas are over 90% water. 🍵💙";
+        return "Tea is mostly water! Herbal teas can even contribute to your daily hydration. 🍵💙";
     }
 
     // Fun Facts
     if (input.includes("fun fact") || input.includes("interesting fact")) {
-        const facts = [
+        let facts = [
             "Your body is about **60% water**! 💧",
-            "Your brain is nearly **75% water**—stay hydrated for better thinking. 🧠💦",
-            "Water helps flush out toxins and transport nutrients. 🚰",
-            "Drinking water can increase metabolism by **30%** for an hour. 🔥",
-            "Even 1-2% dehydration affects mood, focus, and memory. 🧠💢"
+            "Your brain is nearly **75% water**—so stay hydrated for better focus. 🧠💦",
+            "Water helps absorb nutrients and flush out toxins! 🚰",
+            "Drinking water can boost metabolism by **30%** for about an hour. 🔥💧",
+            "Even mild dehydration (1-2% loss) can impact memory and mood. Stay hydrated! 🧠"
         ];
         return facts[Math.floor(Math.random() * facts.length)];
     }
 
-    // Default fallback
-    return "I'm here to guide you on hydration, fitness, and wellness. Ask me how much water you need, or what happens if you skip it! 💙💧";
+    // Default Response
+    return "I'm here to help! Ask me about hydration,. 💙";
 }
