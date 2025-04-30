@@ -42,7 +42,7 @@ function getBotResponse(input) {
     let weightMatch = input.match(/(\d{2,3})\s*kg/);
     if (weightMatch) {
         let weight = parseFloat(weightMatch[1]);
-        let waterIntake = weight * 0.033;
+        let waterIntake = weight / 20;
         return `For your weight, you should drink about **${waterIntake.toFixed(2)} liters** of water per day💦`;
     }
 
