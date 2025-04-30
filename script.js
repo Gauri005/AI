@@ -43,7 +43,7 @@ function getBotResponse(input) {
     if (weightMatch) {
         let weight = parseFloat(weightMatch[1]);
         let waterIntake = weight * 0.033;
-        return `For your weight, you should drink about **${waterIntake.toFixed(2)} liters** of water per day. Do you track hydration with a smartwatch? ⌚💦`;
+        return `For your weight, you should drink about **${waterIntake.toFixed(2)} liters** of water per day💦`;
     }
 
     // Hydration Needs in Special Conditions
